@@ -73,3 +73,41 @@ function extractLastAssistantMessage() {
   }
 }
 
+(function iapCompliance() {
+  let cssContent = `
+/* try pro */
+.px-md.pb-sm.border-borderMain\\/50 {
+  display: none;
+}
+
+/* account */
+[href="/settings/account"] {
+  display: none;
+}
+
+/* pro */
+[href="/pro"] {
+  display: none;
+}
+
+/* playground */
+[href="https://labs.perplexity.ai"] {
+  display: none;
+}
+
+/* copilot purchase popup */
+.bg-background.dark\\:bg-backgroundDark.shadow-md.overflow-auto.md\\:rounded-lg {
+  display: none;
+}
+
+/* signup */
+button.bg-super.dark\\:bg-superDark {
+  display: none;
+}
+`;
+
+  let style = document.createElement('style');
+  style.innerHTML = cssContent;
+  document.head.appendChild(style);
+})();
+

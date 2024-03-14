@@ -89,3 +89,21 @@ function extractLastAssistantMessage() {
     return text;
   }
 }
+
+(function iapCompliance() {
+  let cssContent = `
+/* chatgpt change */
+.group.flex.radix-state-open\\:bg-token-main-surface-secondary {
+  pointer-events: none;
+}
+
+/* buy premium */
+.group.flex.hover\\:bg-token-sidebar-surface-secondary.m-0.rounded-lg.px-2 {
+  display: none;
+}
+`;
+
+  let style = document.createElement('style');
+  style.innerHTML = cssContent;
+  document.head.appendChild(style);
+})();
