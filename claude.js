@@ -1,19 +1,20 @@
 let beforeSubmitCount = 0;
 
 function getTextArea() {
-  return document.querySelector(".ql-editor.textarea");
+  let areas = document.querySelectorAll('.ProseMirror.break-words');
+  if (areas.length > 1) {
+    return areas[1];
+  } else {
+    return areas[0];
+  }
 }
 
 function extractLastAssistantMessageElements() {
-  return Array.from(document.querySelectorAll('.response-container-content'));
+  return Array.from(document.querySelectorAll('.font-claude-message'));
 }
 
 function responseFooterElements() {
-  return Array.from(document.querySelectorAll('message-actions'));
-}
-
-function isAnimating() {
-  return document.querySelector('.animated-line-inner') !== null;
+  return Array.from(document.querySelectorAll('.flex.items-center.bg-bg-000'));
 }
 
 function appendToTextAreaValue(value) {
@@ -23,7 +24,12 @@ function appendToTextAreaValue(value) {
 
 function submitTextArea() {
   beforeSubmitCount = extractLastAssistantMessageElements().length;
-  document.querySelector("button.send-button").click();
+  let buttonContainers = document.querySelectorAll('.grid.grid-flow-col');
+  if (buttonContainers.length > 1) {
+    buttonContainers[1].querySelector('button').click();
+  } else {
+    buttonContainers[0].querySelector('button').click();
+  }
 }
 
 function isResponseReady() {
@@ -32,14 +38,13 @@ function isResponseReady() {
     return false;
   }
 
-  return !isAnimating();
+  return responseFooterElements().length === msgCount;
 }
 
 function scrollDown() {
-  let footers = document.querySelectorAll('.response-container-footer');
-  if (footers.length > 0) {
-    let element = footers[footers.length - 1];
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  let bottomAnchor = document.querySelector('.transition-transform.duration-300');
+  if (bottomAnchor !== null) {
+    bottomAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
 
@@ -52,7 +57,7 @@ function extractLastAssistantMessage() {
     let lastItem = assistantMessages[assistantMessages.length - 1];
     let clonedElement = lastItem.cloneNode(true);
 
-    let childrenToRemove = clonedElement.querySelectorAll('sources-list, .code-block, .attachment-container');
+    let childrenToRemove = clonedElement.querySelectorAll('.code-block');
     childrenToRemove.forEach(function(child) {
       child.parentNode.removeChild(child);
     });
@@ -67,13 +72,18 @@ function extractLastAssistantMessage() {
 
 (function iapCompliance() {
   let cssContent = `
-/* gemini picker button */
-button[data-test-id="bard-mode-menu-button"] {
-  pointer-events: none;
+/* subscribe bottom */
+.absolute.bottom-full.left-0.w-full.text-center {
+  display: none;
 }
 
-/* upgrade button */
-upsell-button {
+/* top right hover */
+.text-accent-pro-000.font-semibold.group-hover\\:underline {
+  display: none;
+}
+
+/* subscribe link */
+a[href^="/settings/billing"] {
   display: none;
 }
 `;
