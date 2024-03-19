@@ -13,7 +13,16 @@ function responseFooterElements() {
 }
 
 function isAnimating() {
-  return document.querySelector('.animated-line-inner') !== null;
+  if (document.querySelector('.animated-line-inner') !== null) {
+    return true;
+  } else {
+    let avatars = document.querySelectorAll('bard-avatar');
+    if (avatars.length > 0) {
+      return avatars[avatars.length - 1].querySelectorAll('img[src$=".gif"').length != 0;
+    } else {
+      return false;
+    }
+  }
 }
 
 function appendToTextAreaValue(value) {

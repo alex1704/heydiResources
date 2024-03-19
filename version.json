@@ -1,7 +1,7 @@
 {
   "chatGPT": 2,
   "perplexityAI": 2,
-  "gemini": 2,
+  "gemini": 3,
   "claude": 1,
-  "copilot": 1
+  "copilot": 2
 }

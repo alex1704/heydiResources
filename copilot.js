@@ -67,6 +67,11 @@ function isResponseReady() {
 }
 
 function scrollDown() {
+  let anchors = shadowQuerySelectorAll('cib-turn-counter');
+  if (anchors.length > 0) {
+    let anchor = anchors[anchors.length - 1];
+    anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 function extractLastAssistantMessage() {
